@@ -1,3 +1,4 @@
 # easylog
 
-![Python package](https://github.com/dilsonlira/easylog/workflows/Python%20package/badge.svg)
+![GitHub](https://img.shields.io/github/license/dilsonlira/easylog)
+![GitHub top language](https://img.shields.io/github/languages/top/dilsonlira/easylog)
