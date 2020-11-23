@@ -48,4 +48,4 @@ def log(expression):
 
 
 if __name__ == '__main__':
-    log('testing log')
+    pass
