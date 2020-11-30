@@ -131,3 +131,6 @@ dmypy.json
 # 
 legacy/
 .vscode/
+path.txt
+.DS_Store
+python

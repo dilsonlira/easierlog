@@ -23,9 +23,6 @@ def log(expression):
 
     argument = command[len(function_name) + 1:-1].strip()
 
-    if argument == 'None':
-        return
-
     file_name = path.split('/')[-1]
     marker = f'{file_name} (line {line_number}) in {scope}'
 
