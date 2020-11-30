@@ -21,30 +21,29 @@ def log(expression):
 
     command = code[0].strip()
 
-    expression = command[len(function_name) + 1:-1].strip()
+    argument = command[len(function_name) + 1:-1].strip()
 
-    if expression == 'None':
+    if argument == 'None':
         return
 
     file_name = path.split('/')[-1]
     marker = f'{file_name} (line {line_number}) in {scope}'
 
-    value = eval(expression)
-    type_ = type(value).__name__
+    type_ = type(expression).__name__
 
     if type_ == 'str':
-        value = f'\'{value}\''
+        expression = f'\'{expression}\''
 
-    expression_string = f'({type_}) {expression} = {value}'
+    argument_string = f'({type_}) {argument} = {expression}'
 
     for char in ['\'', '\"']:
-        if expression.startswith(char) and expression.endswith(char):
-            # expression is a string literal
+        if argument.startswith(char) and argument.endswith(char):
+            # argument is a string literal
 
-            expression_string = expression
+            argument_string = argument
             break
 
-    print(f'[{marker}] {expression_string}')
+    print(f'[{marker}] {argument_string}')
 
 
 if __name__ == '__main__':
