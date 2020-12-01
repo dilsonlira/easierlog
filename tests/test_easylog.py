@@ -66,3 +66,12 @@ def test_empty_string(capfd):
     marker_content, expression_eval = match(log_pattern, output).groups()
     assert isinstance(expression_eval, str)
     assert match(marker_pattern, marker_content) is not None
+
+
+def test_list_of_variables(capfd):
+    for expression in expressions:
+        log(expressions)
+        output, _ = capfd.readouterr()
+        marker_content, expression_eval = match(log_pattern, output).groups()
+        assert isinstance(expression_eval, str)
+        assert match(marker_pattern, marker_content) is not None
