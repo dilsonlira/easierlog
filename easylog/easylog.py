@@ -70,11 +70,15 @@ def log(expression):
 
     _frame_data = get_frame_data(expression)
 
-    for caller_variable_name, caller_variable_value in _frame_data['caller_vars'].items():
+    for caller_variable_name, caller_variable_value \
+            in _frame_data['caller_vars'].items():
+
         if isinstance(caller_variable_value, str):
-            caller_variable_assignment_line = f'{caller_variable_name} = \"{caller_variable_value}\"'
+            caller_variable_assignment_line = \
+                f'{caller_variable_name} = \"{caller_variable_value}\"'
         else:
-            caller_variable_assignment_line = f'{caller_variable_name} = {caller_variable_value}'
+            caller_variable_assignment_line = \
+                f'{caller_variable_name} = {caller_variable_value}'
 
         try:
             exec(caller_variable_assignment_line)
