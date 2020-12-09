@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from contextlib import suppress
+
 from helpers import get_frame_data, make_header, make_body
 
 
@@ -18,10 +20,8 @@ def log(expression):
         else:
             assignment_line = f'{variable_name} = {variable_value}'
 
-        try:
+        with suppress(SyntaxError):
             exec(assignment_line)
-        except BaseException:
-            pass
 
     log_header = make_header(frame_data)
 
