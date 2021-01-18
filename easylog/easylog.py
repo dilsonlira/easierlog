@@ -13,6 +13,14 @@ def log(expression):
 
     frame_data = get_frame_data(expression)
 
+    if frame_data is None:
+        shell_error_message = '''
+        This function does not work in Python interactive shell.
+        Try it inside a Python file.
+        '''
+        print(shell_error_message)
+        return
+
     for variable_name, variable_value in frame_data['caller_vars'].items():
 
         if isinstance(variable_value, str):
