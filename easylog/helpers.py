@@ -9,6 +9,7 @@ def get_frame_data(expression):
         function_name = getouterframes(current_frame)[1][3]
         outer_frame = getouterframes(current_frame)[2]
         caller, path, line_number, scope, code = outer_frame[:5]
+
         if path == '<stdin>':
             # Invocation in a Python interactive shell
             return None
