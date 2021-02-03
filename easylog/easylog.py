@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-from contextlib import suppress
-
 from helpers import get_frame_data, make_header, make_body
 
 
@@ -20,16 +18,6 @@ def log(expression):
         '''
         print(shell_error_message)
         return
-
-    for variable_name, variable_value in frame_data['caller_vars'].items():
-
-        if isinstance(variable_value, str):
-            assignment_line = f'{variable_name} = \"{variable_value}\"'
-        else:
-            assignment_line = f'{variable_name} = {variable_value}'
-
-        with suppress(SyntaxError):
-            exec(assignment_line)
 
     log_header = make_header(frame_data)
 
