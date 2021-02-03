@@ -1,7 +1,7 @@
 from inspect import currentframe, getouterframes
 
 
-def get_frame_data(expression):
+def get_frame_data():
     """Get expression passed as argument and other necessary info"""
 
     try:
@@ -24,7 +24,6 @@ def get_frame_data(expression):
     file_name = path.split('/')[-1]
 
     data = {
-        'evaluation': expression,
         'caller_vars': caller_vars,
         'expression_passed': expression_passed,
         'file_name': file_name,
@@ -47,11 +46,10 @@ def make_header(frame_data):
     return header
 
 
-def make_body(frame_data):
+def make_body(frame_data, evaluation):
     """Make log body"""
 
     expression = frame_data['expression_passed']
-    evaluation = frame_data['evaluation']
 
     expression_type = type(evaluation).__name__
 

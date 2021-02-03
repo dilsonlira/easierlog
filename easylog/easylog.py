@@ -9,7 +9,7 @@ def log(expression):
     if expression is None:
         return
 
-    frame_data = get_frame_data(expression)
+    frame_data = get_frame_data()
 
     if frame_data is None:
         shell_error_message = '''
@@ -21,7 +21,7 @@ def log(expression):
 
     log_header = make_header(frame_data)
 
-    log_body = make_body(frame_data)
+    log_body = make_body(frame_data, expression)
 
     print(f'[{log_header}] {log_body}')
 
