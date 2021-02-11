@@ -53,21 +53,21 @@ def make_header(frame_data):
     return header
 
 
-def make_body(name, value):
+def make_body(variable_name, variable_value):
     """Makes log body"""
 
-    _type = type(value).__name__
+    variable_type = type(variable_value).__name__
 
-    if _type == 'str':
-        value = f'\'{value}\''
+    if variable_type == 'str':
+        variable_value = f'\'{variable_value}\''
 
-    log_body = f'({_type}) {name} = {value}'
+    log_body = f'({variable_type}) {variable_name} = {variable_value}'
 
     for char in ['\'', '\"']:
-        if name.startswith(char) and name.endswith(char):
+        if variable_name.startswith(char) and variable_name.endswith(char):
             # expression is a string literal
 
-            log_body = name
+            log_body = variable_name
             break
 
     return log_body
