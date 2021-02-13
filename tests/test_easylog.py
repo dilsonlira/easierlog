@@ -1,10 +1,8 @@
-from re import match
-
 import pytest
 
 from easylog import log
 
-expressions = [
+vars = [
     0,
     404,
     -23,
@@ -30,48 +28,77 @@ expressions = [
     (4j - 1) / (7j + 99)
 ]
 
-log_pattern = r'^\[(.+)\]\s(.+)'
-marker_pattern = r'\w+\.py\s\(line\s\d+\)\sin\s.+'
-expression_pattern = r'\(\w+\)\s\w+\s=\s.+'
+
+def make_log_line(function_name, line_number, variable_name, variable_value):
+    file_name = 'test_easylog.py'
+    log_header = f'{file_name} (line {line_number}) in {function_name}'
+
+    variable_type = type(variable_value).__name__
+    if variable_type == 'str':
+        variable_value = f'\'{variable_value}\''
+
+    if variable_name is None:
+        # string literal
+        log_body = variable_value
+    else:
+        log_body = f'({variable_type}) {variable_name} = {variable_value}'
+
+    log_line = f'[{log_header}] {log_body}\n'
+
+    return log_line
 
 
-@pytest.mark.parametrize('expression', expressions)
-def test_expressions(expression, capfd):
-    log(expression)
-    output, _ = capfd.readouterr()
-    marker_content, expression_eval = match(log_pattern, output).groups()
-    assert match(marker_pattern, marker_content) is not None
-    assert match(expression_pattern, expression_eval) is not None
+@pytest.mark.parametrize('var', vars)
+def test_vars(var, capfd):
+    log(var)
+    actual_output = capfd.readouterr().out
+    expected_output = make_log_line('test_vars', 53, 'var', var)
+    assert expected_output == actual_output
 
 
 def test_literal_string(capfd):
     log('testing')
-    output, _ = capfd.readouterr()
-    marker_content, expression_eval = match(log_pattern, output).groups()
-    assert isinstance(expression_eval, str)
-    assert match(marker_pattern, marker_content) is not None
-
-
-def test_multiline_literal_string(capfd):
-    log('testing \n multiple \n line \n strings')
-    output, _ = capfd.readouterr()
-    marker_content, expression_eval = match(log_pattern, output).groups()
-    assert isinstance(expression_eval, str)
-    assert match(marker_pattern, marker_content) is not None
+    actual_output = capfd.readouterr().out
+    expected_output = make_log_line('test_literal_string', 60, None, 'testing')
+    assert expected_output == actual_output
 
 
 def test_empty_string(capfd):
     log('')
-    output, _ = capfd.readouterr()
-    marker_content, expression_eval = match(log_pattern, output).groups()
-    assert isinstance(expression_eval, str)
-    assert match(marker_pattern, marker_content) is not None
+    actual_output = capfd.readouterr().out
+    expected_output = make_log_line('test_empty_string', 67, None, '')
+    assert expected_output == actual_output
 
 
-def test_list_of_variables(capfd):
-    for expression in expressions:
-        log(expressions)
-        output, _ = capfd.readouterr()
-        marker_content, expression_eval = match(log_pattern, output).groups()
-        assert isinstance(expression_eval, str)
-        assert match(marker_pattern, marker_content) is not None
+def test_list_vars(capfd):
+    log(vars)
+    actual_output = capfd.readouterr().out
+    expected_output = make_log_line('test_list_vars', 74, 'vars', vars)
+    assert expected_output == actual_output
+
+
+def test_many_variables(capfd):
+    a = 1
+    b = 4.3
+    c = 'hello world'
+    log(a, b, c)
+    actual_output = capfd.readouterr().out
+    log_lines = ''
+    log_lines += make_log_line('test_many_variables', 84, 'a', a)
+    log_lines += make_log_line('test_many_variables', 84, 'b', b)
+    log_lines += make_log_line('test_many_variables', 84, 'c', c)
+    assert actual_output == log_lines
+
+
+def test_no_arguments(capfd):
+    a = 1
+    b = 4.3
+    c = 'hello world'
+    log()
+    actual_output = capfd.readouterr().out
+    log_lines = ''
+    log_lines += make_log_line('test_no_arguments', 97, 'c', c)
+    log_lines += make_log_line('test_no_arguments', 97, 'b', b)
+    log_lines += make_log_line('test_no_arguments', 97, 'a', a)
+    log_lines += make_log_line('test_no_arguments', 97, 'capfd', capfd)
+    assert actual_output == log_lines
