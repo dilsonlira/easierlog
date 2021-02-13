@@ -53,28 +53,28 @@ def test_vars(var, capfd):
     log(var)
     actual_output = capfd.readouterr().out
     expected_output = make_log_line('test_vars', 53, 'var', var)
-    assert expected_output == actual_output
+    assert actual_output == expected_output
 
 
 def test_literal_string(capfd):
     log('testing')
     actual_output = capfd.readouterr().out
     expected_output = make_log_line('test_literal_string', 60, None, 'testing')
-    assert expected_output == actual_output
+    assert actual_output == expected_output
 
 
 def test_empty_string(capfd):
     log('')
     actual_output = capfd.readouterr().out
     expected_output = make_log_line('test_empty_string', 67, None, '')
-    assert expected_output == actual_output
+    assert actual_output == expected_output
 
 
 def test_list_vars(capfd):
     log(vars)
     actual_output = capfd.readouterr().out
     expected_output = make_log_line('test_list_vars', 74, 'vars', vars)
-    assert expected_output == actual_output
+    assert actual_output == expected_output
 
 
 def test_many_variables(capfd):
@@ -83,11 +83,11 @@ def test_many_variables(capfd):
     c = 'hello world'
     log(a, b, c)
     actual_output = capfd.readouterr().out
-    log_lines = ''
-    log_lines += make_log_line('test_many_variables', 84, 'a', a)
-    log_lines += make_log_line('test_many_variables', 84, 'b', b)
-    log_lines += make_log_line('test_many_variables', 84, 'c', c)
-    assert actual_output == log_lines
+    expected_output = ''
+    expected_output += make_log_line('test_many_variables', 84, 'a', a)
+    expected_output += make_log_line('test_many_variables', 84, 'b', b)
+    expected_output += make_log_line('test_many_variables', 84, 'c', c)
+    assert actual_output == expected_output
 
 
 def test_no_arguments(capfd):
@@ -96,9 +96,11 @@ def test_no_arguments(capfd):
     c = 'hello world'
     log()
     actual_output = capfd.readouterr().out
-    log_lines = ''
-    log_lines += make_log_line('test_no_arguments', 97, 'c', c)
-    log_lines += make_log_line('test_no_arguments', 97, 'b', b)
-    log_lines += make_log_line('test_no_arguments', 97, 'a', a)
-    log_lines += make_log_line('test_no_arguments', 97, 'capfd', capfd)
-    assert actual_output == log_lines
+    actual_list = [item + '\n' for item in actual_output[:-1].split('\n')]
+    expected_list = []
+    expected_list += [make_log_line('test_no_arguments', 97, 'a', a)]
+    expected_list += [make_log_line('test_no_arguments', 97, 'b', b)]
+    expected_list += [make_log_line('test_no_arguments', 97, 'c', c)]
+    expected_list += [make_log_line('test_no_arguments', 97, 'capfd', capfd)]
+    assert len(actual_list) == len(expected_list)
+    assert set(actual_list) == set(expected_list)
