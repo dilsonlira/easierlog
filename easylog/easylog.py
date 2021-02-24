@@ -26,6 +26,8 @@ def log(*variables):
             log_body = make_body(name, value)
             print_log(log_header, log_body)
     else:
+        variables_exist = False
+
         for name, value in frame_data['caller_vars'].items():
 
             log_body = make_body(name, value)
@@ -35,6 +37,10 @@ def log(*variables):
 
             if not is_dunder and not is_function:
                 print_log(log_header, log_body)
+                variables_exist = True
+
+        if not variables_exist:
+            print_log(log_header, 'No declared variables.')
 
 
 if __name__ == '__main__':

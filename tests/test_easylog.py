@@ -32,10 +32,10 @@ vars = [
 def make_log_line(function_name, line_number, variable_name, variable_value):
     file_name = 'test_easylog.py'
     log_header = f'{file_name} (line {line_number}) in {function_name}'
-
     variable_type = type(variable_value).__name__
     if variable_type == 'str':
-        variable_value = f'\'{variable_value}\''
+        if variable_value != 'No declared variables.':
+            variable_value = f'\'{variable_value}\''
 
     if variable_name is None:
         # string literal
@@ -82,25 +82,38 @@ def test_many_variables(capfd):
     b = 4.3
     c = 'hello world'
     log(a, b, c)
+    fuction_name = 'test_many_variables'
     actual_output = capfd.readouterr().out
     expected_output = ''
-    expected_output += make_log_line('test_many_variables', 84, 'a', a)
-    expected_output += make_log_line('test_many_variables', 84, 'b', b)
-    expected_output += make_log_line('test_many_variables', 84, 'c', c)
+    expected_output += make_log_line(fuction_name, 84, 'a', a)
+    expected_output += make_log_line(fuction_name, 84, 'b', b)
+    expected_output += make_log_line(fuction_name, 84, 'c', c)
     assert actual_output == expected_output
 
 
-def test_no_arguments(capfd):
+def test_no_args_with_vars(capfd):
     a = 1
     b = 4.3
     c = 'hello world'
     log()
+    fuction_name = 'test_no_args_with_vars'
     actual_output = capfd.readouterr().out
     actual_list = [item + '\n' for item in actual_output[:-1].split('\n')]
     expected_list = []
-    expected_list += [make_log_line('test_no_arguments', 97, 'a', a)]
-    expected_list += [make_log_line('test_no_arguments', 97, 'b', b)]
-    expected_list += [make_log_line('test_no_arguments', 97, 'c', c)]
-    expected_list += [make_log_line('test_no_arguments', 97, 'capfd', capfd)]
+    expected_list += [make_log_line(fuction_name, 98, 'a', a)]
+    expected_list += [make_log_line(fuction_name, 98, 'b', b)]
+    expected_list += [make_log_line(fuction_name, 98, 'c', c)]
+    expected_list += [make_log_line(fuction_name, 98, 'capfd', capfd)]
     assert len(actual_list) == len(expected_list)
     assert set(actual_list) == set(expected_list)
+
+
+def test_no_args_no_vars(capfd):
+    def inner_function():
+        log()
+    inner_function()
+    function_name = 'inner_function'
+    no_vars_string = 'No declared variables.'
+    actual_output = capfd.readouterr().out
+    expected_output = make_log_line(function_name, 113, None, no_vars_string)
+    assert actual_output == expected_output
