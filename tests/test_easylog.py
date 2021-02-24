@@ -117,3 +117,18 @@ def test_no_args_no_vars(capfd):
     actual_output = capfd.readouterr().out
     expected_output = make_log_line(function_name, 113, None, no_vars_string)
     assert actual_output == expected_output
+
+
+def test_object(capfd):
+    class MyClass:
+        def __init__(self, name):
+            self.name = name
+
+        def __repr__(self):
+            return self.name
+
+    my_object = MyClass('name')
+    log(my_object)
+    actual_output = capfd.readouterr().out
+    expected_output = make_log_line('test_object', 131, 'my_object', my_object)
+    assert actual_output == expected_output
