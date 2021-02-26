@@ -4,7 +4,15 @@ from helpers import get_frame_data, make_header, make_body, print_log
 
 
 def log(*variables):
-    """Prints name and value of variables passed"""
+    """For each comma-separated variable passed as argument,
+    prints a line containing:
+    - File name where was called
+    - Line number where was called
+    - Function name where was called
+    - Variable type
+    - Variable name
+    - Variable value
+    """
 
     frame_data = get_frame_data()
 
