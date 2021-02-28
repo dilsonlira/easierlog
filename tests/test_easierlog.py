@@ -1,6 +1,6 @@
 import pytest
 
-from easylog.easylog import log
+from easierlog.easierlog import log
 
 vars = [
     0,
@@ -30,7 +30,7 @@ vars = [
 
 
 def make_log_line(function_name, line_number, variable_name, variable_value):
-    file_name = 'test_easylog.py'
+    file_name = 'test_easierlog.py'
     log_header = f'{file_name} (line {line_number}) in {function_name}'
     variable_type = type(variable_value).__name__
     if variable_type == 'str':

@@ -1,13 +1,13 @@
 import pathlib
 from setuptools import find_packages, setup
 
-from easylog import VERSION
+from easierlog import VERSION
 
 HERE = pathlib.Path(__file__).parent
-PACKAGE_NAME = 'easylog'
+PACKAGE_NAME = 'easierlog'
 AUTHOR = 'Manoel Lira'
 AUTHOR_EMAIL = 'dilsonlira@gmail.com'
-URL = 'https://github.com/dilsonlira/easylog'
+URL = 'https://github.com/dilsonlira/easierlog'
 LICENSE = 'MIT'
 DESCRIPTION = 'The easy way to inspect variables in Python'
 LONG_DESCRIPTION = (HERE / 'README.md').read_text()

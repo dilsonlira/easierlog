@@ -1,7 +1,7 @@
-# **easylog**: the easy way to inspect variables in Python
+# **easierlog**: the easy way to inspect variables in Python
 
-![GitHub Workflow Status (event)](https://img.shields.io/github/workflow/status/dilsonlira/easylog/Python%20package)
-![GitHub](https://img.shields.io/github/license/dilsonlira/easylog)
+![GitHub Workflow Status (event)](https://img.shields.io/github/workflow/status/dilsonlira/easierlog/Python%20package)
+![GitHub](https://img.shields.io/github/license/dilsonlira/easierlog)
 
 ## 1. Basic usage
 
@@ -15,7 +15,7 @@ It became a little bit easier since Python 3.8:
 
     print(f'{some_variable=}')
 
-But not so easy when comparing to easylog:
+But not so easy when comparing to easierlog:
 
     log(some_variable)
 
@@ -46,12 +46,12 @@ Running the script above, it will result:
 3
 Hello World
 ```
-By using easylog, the script would become:
+By using easierlog, the script would become:
 
 ```python
  1  # script2.py
  2  
- 3  from easylog import log
+ 3  from easierlog import log
  4  
  5
  6  def function1():
@@ -97,7 +97,7 @@ It is also possible to pass multiple variables at once:
 ```python
  1  # script3.py
  2  
- 3  from easylog import log
+ 3  from easierlog import log
  4 
  5 
  6  def function():
@@ -126,7 +126,7 @@ Calling `log()` without any arguments it will log all declared variables in the 
 ```python
  1  # script4.py
  2  
- 3  from easylog import log
+ 3  from easierlog import log
  4 
  5 
  6  def function():
@@ -162,4 +162,4 @@ Sometimes we use `print()` not to check a specific variable, but just to check i
 
 To install the latest release, type:
 
-```pip install easylog``` -->
+```pip install easierlog``` -->
