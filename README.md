@@ -156,10 +156,10 @@ if condition:
 ```
 
 ## 4. String as argument
-Sometimes we use `print()` not to check a specific variable, but just to check if a piece of code was executed.
+Sometimes we use `print()` not to check a specific variable, but just to check if a piece of code was executed. -->
 
-# Installation
+## Installation
 
 To install the latest release, type:
 
-```pip install easierlog``` -->
+```pip install easierlog```
