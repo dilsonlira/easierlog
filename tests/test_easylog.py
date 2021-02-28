@@ -1,6 +1,6 @@
 import pytest
 
-from easylog import log
+from easylog.easylog import log
 
 vars = [
     0,

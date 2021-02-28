@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from helpers import get_frame_data, make_header, make_body, print_log
+from easylog.helpers import get_frame_data, make_header, make_body, print_log
 
 
 def log(*variables):

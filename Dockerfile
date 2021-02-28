@@ -3,4 +3,4 @@ RUN python -m pip install --upgrade pip
 RUN pip install flake8 pytest
 COPY easylog/ easylog/
 COPY tests/ tests/
-CMD sh -c "flake8 easylog tests --count --exit-zero && pytest tests"
+CMD sh -c "flake8 easylog tests --count --exit-zero && python -m pytest tests"
