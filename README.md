@@ -1,9 +1,23 @@
 # **easierlog**: the easy way to inspect variables in Python
 
-![GitHub Workflow Status (event)](https://img.shields.io/github/workflow/status/dilsonlira/easierlog/Python%20package)
-![GitHub](https://img.shields.io/github/license/dilsonlira/easierlog)
 
-## 1. Basic usage
+![Python](https://img.shields.io/pypi/pyversions/easierlog.svg)
+![GitHub Workflow Status (event)](https://img.shields.io/github/workflow/status/dilsonlira/easierlog/Python%20package)
+[![PyPI](https://badge.fury.io/py/easierlog.svg)](https://pypi.org/project/easierlog/)
+[![Downloads](https://pepy.tech/badge/easierlog)](https://pepy.tech/project/easierlog)
+[![CodeFactor](https://www.codefactor.io/repository/github/dilsonlira/easierlog/badge)](https://www.codefactor.io/repository/github/dilsonlira/easierlog)
+
+## Overview
+
+easierlog provides an easier, but much more powerful replacement for `print()` function when debugging in Python. 
+
+## Installation
+
+To install the latest release, type:
+
+$ ```pip install easierlog```
+
+## Getting Started
 
 Roughly every software developer needs to check how variables behave in runtime. In Python, this can be done by using `print()` function, that prints out the value of the passed variable. Sometimes, instead, the variable value is not enough. This is specially true when there are many variables to be inspected, or even when the same variable needs to be inspected in many parts of the code. 
 
@@ -46,7 +60,9 @@ Running the script above, it will result:
 3
 Hello World
 ```
-By using easierlog, the script would become:
+
+## Basic usage
+By using easierlog, the previous script would become:
 
 ```python
  1  # script2.py
@@ -90,7 +106,7 @@ And about the variable passed as argument:
 - Variable value
  
 
-## 2. Multiple variables
+## Multiple variables
 
 It is also possible to pass multiple variables at once:
 
@@ -119,7 +135,7 @@ It will result:
 [script3.py (line 10) in function] (float) z = 0.1
 ```
 
-## 3. All variables
+## All variables
 
 Calling `log()` without any arguments it will log all declared variables in the function:
 
@@ -148,6 +164,35 @@ It will result:
 [script4.py (line 10) in function] (float) z = 0.1
 ```
 
+## Expressions
+
+Not only variables can be passed to `log()` function. Expressions also work:
+
+```python
+ 1  # script5.py
+ 2  
+ 3  from easierlog import log
+ 4 
+ 5 
+ 6  def function():
+ 7      x = 2.3
+ 8      y = 1.5
+ 9      z = 0.1
+10      log(x + y + z)
+12 
+13  function()
+14
+```
+
+It will result:
+
+```
+[script5.py (line 10) in function] (float) x + y + z = 3.9
+```
+
+## License
+This package is released under [MIT License](LICENSE).
+
 <!-- This also can be useful not only to inspect a specific variable, but to check if a piece of code was executed.
 
 ```python
@@ -157,9 +202,3 @@ if condition:
 
 ## 4. String as argument
 Sometimes we use `print()` not to check a specific variable, but just to check if a piece of code was executed. -->
-
-## Installation
-
-To install the latest release, type:
-
-```pip install easierlog```
