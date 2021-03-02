@@ -2,12 +2,12 @@
 
 # Build and run a container from a local Dockerfile
 
-image_name=$(echo $(pwd) | rev | cut -d "/" -f1 | rev)
+image_name=$(pwd | rev | cut -d "/" -f1 | rev)
 
 if test -f Dockerfile; then
     docker build -t $image_name .
 
-    if [[ $1 = "d" ]]; then
+    if [ "$1" = "d" ]; then
         # Debug mode
         docker run -it --rm $image_name sh
     else

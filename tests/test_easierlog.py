@@ -2,7 +2,7 @@ import pytest
 
 from easierlog.easierlog import log
 
-vars = [
+var_list = [
     0,
     404,
     -23,
@@ -48,7 +48,7 @@ def make_log_line(function_name, line_number, variable_name, variable_value):
     return log_line
 
 
-@pytest.mark.parametrize('var', vars)
+@pytest.mark.parametrize('var', var_list)
 def test_vars(var, capfd):
     log(var)
     actual_output = capfd.readouterr().out
@@ -71,9 +71,9 @@ def test_empty_string(capfd):
 
 
 def test_list_vars(capfd):
-    log(vars)
+    log(var_list)
     actual_output = capfd.readouterr().out
-    expected_output = make_log_line('test_list_vars', 74, 'vars', vars)
+    expected_output = make_log_line('test_list_vars', 74, 'var_list', var_list)
     assert actual_output == expected_output
 
 
