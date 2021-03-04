@@ -17,19 +17,18 @@ def get_frame_data():
         outer_frame = getouterframes(current_frame)[2]
         caller, path, line_number, function_name, code = outer_frame[:5]
 
-        if path == '<stdin>':
-            # Invocation in a Python interactive shell
-            # return None
-            pass
-
     finally:
         del current_frame
         del outer_frame
 
     caller_vars = caller.f_locals
     if path == '<stdin>':
-        file_name = 'Python Interpreter'
-        command = get_history_item(get_current_history_length())
+        file_name = 'Python Shell'
+        history_index = get_current_history_length()
+        command = ''
+        while log_function_name not in command:
+            command = get_history_item(history_index).strip()
+            history_index -= 1
     else:
         file_name = path.split('/')[-1]
         command = code[0].strip()

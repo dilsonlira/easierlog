@@ -16,15 +16,6 @@ def log(*variables):
 
     frame_data = get_frame_data()
 
-    if frame_data is None:
-        shell_error_message = '''
-        This function does not work in Python interactive shell.
-        Try it inside a Python file.
-        '''
-        # readline.get_history_item(readline.get_current_history_length())
-        print(shell_error_message)
-        return
-
     log_header = make_header(frame_data)
 
     if variables:
