@@ -1,4 +1,5 @@
 from inspect import currentframe, getouterframes
+from readline import get_history_item, get_current_history_length
 
 
 def get_frame_data():
@@ -18,17 +19,22 @@ def get_frame_data():
 
         if path == '<stdin>':
             # Invocation in a Python interactive shell
-            return None
+            # return None
+            pass
 
     finally:
         del current_frame
         del outer_frame
 
     caller_vars = caller.f_locals
-    command = code[0].strip()
+    if path == '<stdin>':
+        file_name = 'Python Interpreter'
+        command = get_history_item(get_current_history_length())
+    else:
+        file_name = path.split('/')[-1]
+        command = code[0].strip()
     arguments_string = command[len(log_function_name) + 1:-1].strip()
     arguments_list = [item.strip() for item in arguments_string.split(',')]
-    file_name = path.split('/')[-1]
 
     data = {
         'caller_vars': caller_vars,

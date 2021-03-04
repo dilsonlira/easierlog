@@ -21,6 +21,7 @@ def log(*variables):
         This function does not work in Python interactive shell.
         Try it inside a Python file.
         '''
+        # readline.get_history_item(readline.get_current_history_length())
         print(shell_error_message)
         return
 
