@@ -1,16 +1,17 @@
-import pathlib
+import os
 from setuptools import find_packages, setup
 
-from easierlog import VERSION
+with open('README.md', 'r', encoding='utf8') as fh:
+    LONG_DESCRIPTION = fh.read()
 
-HERE = pathlib.Path(__file__).parent
+VERSION = os.environ.get('EASIERLOG_VERSION')
+
 PACKAGE_NAME = 'easierlog'
 AUTHOR = 'Manoel Lira'
 AUTHOR_EMAIL = 'dilsonlira@gmail.com'
 URL = 'https://github.com/dilsonlira/easierlog'
 LICENSE = 'MIT'
 DESCRIPTION = 'The easy way to inspect variables in Python'
-LONG_DESCRIPTION = (HERE / 'README.md').read_text()
 LONG_DESC_TYPE = 'text/markdown'
 CLASSIFIERS = [
     'License :: OSI Approved :: MIT License',
