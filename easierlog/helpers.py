@@ -1,8 +1,9 @@
 from inspect import currentframe, getouterframes
 from readline import get_history_item, get_current_history_length
+from typing import Any, Dict, cast
 
 
-def get_frame_data():
+def get_frame_data() -> Dict[str, Any]:
     """Returns a dictionary with
         - a list of variables in the scope where log was called
         - a list of arguments passed in log function
@@ -31,7 +32,7 @@ def get_frame_data():
             history_index -= 1
     else:
         file_name = path.split('/')[-1]
-        command = code[0].strip()
+        command = cast(str, code)[0].strip()
     arguments_string = command[len(log_function_name) + 1:-1].strip()
     arguments_list = [item.strip() for item in arguments_string.split(',')]
 
@@ -46,7 +47,7 @@ def get_frame_data():
     return data
 
 
-def make_header(frame_data):
+def make_header(frame_data: Dict[str, Any]) -> str:
     """Makes log header"""
 
     file_name = frame_data['file_name']
@@ -58,7 +59,7 @@ def make_header(frame_data):
     return header
 
 
-def make_body(variable_name, variable_value):
+def make_body(variable_name: str, variable_value: str) -> str:
     """Makes log body"""
 
     variable_type = type(variable_value).__name__
@@ -78,7 +79,7 @@ def make_body(variable_name, variable_value):
     return log_body
 
 
-def print_log(header, body):
+def print_log(header: str, body: str) -> None:
     '''Makes and prints log_line'''
 
     log_line = f'[{header}] {body}'

@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
+from typing import Any
+
 from easierlog.helpers import get_frame_data, make_header, make_body, print_log
 
 
-def log(*variables):
+def log(*variables: Any) -> None:
     """For each comma-separated variable passed as argument,
     prints a line containing:
     - File name where was called
